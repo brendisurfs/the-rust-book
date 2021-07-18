@@ -1,0 +1,43 @@
+References and Borrowing
+creating functions to share strings? nah. 
+using refernces? yah.
+
+example:
+fn main() {
+    let s1 = String::from("hello");
+
+    let len = calc_len(&s1);
+
+    println!("the length of '{}' is {}", s1, len);
+}
+
+fn calc_len(s: &String) -> usize {
+    s.len();
+};
+
+SO whats happening here?
+notice that we *reference* both our s1 (&s1) AS WELL AS our String constructor (&String);
+
+why? think back to what we learning in the page before.
+we may have zero clue what the value of our string argument will be at runtime, so we let it become a String type (rather than accepting a string literal);
+While we are refering to the value, we arent owning it at all.
+
+You cant modify something you are borrowing, like:
+s.push_str("nice");
+from the above example.
+it just wont work.
+
+BUT, we can totally make it work.
+throw a little mut on there, and we are good to go.
+
+fn main() {
+    let mut s = String::from("nice");
+    change(&mut s);
+}
+fn change(str: &mut String) {
+    str.push_str("sick");
+}
+
+TAkeawy: 
+- at any given time, you can have EITHER one mut refernce or any number of immutable refs.
+- references must always be valid.
