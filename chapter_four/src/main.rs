@@ -40,10 +40,20 @@ fn main() {
     println!("{}", s2);
 
     // clone is a visual indicator that there is a reason that the variable and data is being copied. 
-
     let s3 = s2.clone();
-
     println!("{}", s3);
+
+    // Copy trait:: 
+    // if a type has a Copy trait, older variables are still usable after assignment.
+    //  We will learn about this later in Derivable Traits
+
+    let tup: (u32, bool ) = (282, true);
+    let tpc = tup;
+    let (tpx, tpy) = tpc;
+    println!("tup = {}, tp = {}", tpx, tpy);
+    
+
+
 }
 
 
