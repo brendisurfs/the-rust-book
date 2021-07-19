@@ -1,0 +1,11 @@
+functions
+
+rust uses snake case for its functions.
+start a function with fn. 
+
+functions outside of the main function can be called within the main function
+lines execute in the order they appear in the main function.
+
+functions can take in arguments, like most programming languages.
+
+

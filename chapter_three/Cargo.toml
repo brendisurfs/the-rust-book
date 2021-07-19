@@ -1,7 +1,11 @@
 [package]
 name = "chapter_three"
 version = "0.1.0"
+<<<<<<< HEAD
 authors = ["Brendan Prednis <brendan.prednis@gmail.com>"]
+=======
+authors = ["brendoprendo <brendan.prednis@gmail.com>"]
+>>>>>>> 7bc8715a0ca9056488d77274c1c97fee593726f6
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

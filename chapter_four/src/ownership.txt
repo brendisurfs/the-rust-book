@@ -1,0 +1,95 @@
+Ownership
+
+onwership rules:
+each value in rust has a variable called its "owner"
+there can only be one owner at a time.
+
+when the owner goes out of scope, the value is dropped.
+
+1. Variable scope
+
+{
+    let s = "hello";
+}
+
+when the s is in scope here, its valid. 
+it remains valid until its out of scope. 
+
+2. String type and scope
+
+using String to showcase scope.
+String literals are immutable by default, which makes it a little difficult to use sometimes.
+String type (String::) is a good way to store a new string in memory and make it mutable.
+
+- it is allocated on the heap, and can store unknown data sizes at compile time.
+
+let s = String::from("hello");
+
+double colon (::) is an operator that allows us to namespace thsi particular from function. its like a method.
+this kind of string defined above can be mutated.
+
+s.push_str(", world");
+print("{}", s);
+
+
+4. Memory and Allocation
+
+in the case of a string literal, we know the conents at compile time. 
+this is why string literals are fast and efficient. 
+BUT remember, these are immutable.
+we cant put a blob of memory into the binary for each piece of text whose size is unkown at compile time and whose size might change while running the program.
+
+
+With the String type, in order to support a mutable text,
+we need to allocate an amount of memory on the heap, unknown at compile time, to hold the contents. 
+
+- the memory must be requested from the memory allocator at runtime.
+- we need a way of returning this memory to the allocator when we are done with our String.
+
+the first part is done by us when we use String::from.
+
+usually languages use a garbare collector, GC keeps track of our memory and cleans what isn't being used. 
+In rust though, its our responsibility to clean up the memory no longer being used.
+But really, its easier than most non gc langs in the past.
+We just need to make sure that the variable goes out of scope.
+
+rust automatically calls a special function called drop. 
+
+//lets look at this example:
+let s1 = String::from("surf");
+let s2 = s1;
+println!("{}", s1);
+
+this will return an error(value borrowed after move) because rust considers s1 invalid after its value has been transferred to s2.
+rust invalidates the first variable, known as a move.
+
+Rust automatically never creates a "deep" copy of data. automatic copying like we did can be assumed to be inexpensive.
+
+4. ways variables and data can interact.
+example:
+let s1 = String::from("hello");
+let s2 = s1.clone();
+
+println!("s1 = {}, s2 = {}", s1, s2);
+
+this works because we explicitly state that we are cloning the data from the heap.
+
+
+BUT, where we previously got errors with using strings and string literals,
+the same thing doesnt really apply to ints. 
+
+take this example:
+let x = 5;
+let y = x;
+println!("{}, {}", x, y);
+
+THIS works. Why? integers have a knonw size at compile time and are stored entirely on the stack, so copies are quick and light to make.
+
+
+OK COOL SO WHAT TYPES *CAN* COPY?
+- all ints
+- boolean
+- all floats
+- chars
+- tuples, ONLY if they implement Copy enables types.
+
